@@ -3,6 +3,7 @@ import { GeneratePassword, GenerateSalt, option, updateSchema,
     registerSchema, loginSchema, generateToken } from '../Utils/utils'
 import User from '../model/userModel'
 import bcrypt from 'bcryptjs'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 
 //=====REGISTER======//
@@ -33,7 +34,8 @@ export const Register = async(req: Request, res: Response)=>{
                 lng: 0,
                 lat: 0,
                 verified: false,
-                role: "user"
+                role: "user",
+                coverImage: ""
             })
             const userExist = await User.findOne({email})
             return res.status(201).json({
@@ -132,10 +134,11 @@ export const getUser = async(req:Request,res:Response)=>{
     }
 }
 
-export const updateUser = async(req:Request,res:Response)=>{
+export const updateUser = async(req:JwtPayload,res:Response)=>{
     try{
         const id = req.params._id
-        const {firstName,lastName,address,gender,phone} = req.body
+        console.log(id)
+        const {firstName,lastName,address,gender,phone,coverImage} = req.body
         const validateResult = updateSchema.validate(req.body,option)
         if(validateResult.error){
             return res.status(400).json({
@@ -148,9 +151,11 @@ export const updateUser = async(req:Request,res:Response)=>{
                 Error: "You are not authorized to update your profile"
             })
         }
-        const updatedUser = await User.findOneAndUpdate({_id:id},{firstName, lastName, address, gender, phone}, {new:true})
+        console.log(user)
+        const updatedUser = await User.findOneAndUpdate({_id:id},{firstName, lastName, address, gender, phone, coverImage:req.file.path}) //{new:true})
         if(updatedUser){
             const userNew = await User.findOne({_id:id})
+            console.log(userNew)
             return res.status(200).json({
                 message: "Profile updated successfully",
                 userNew

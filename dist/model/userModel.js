@@ -63,6 +63,9 @@ const userSchema = new mongoose_1.Schema({
     },
     role: {
         type: String
+    },
+    coverImage: {
+        type: String
     }
 }, {
     timestamps: true

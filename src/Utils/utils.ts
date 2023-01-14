@@ -24,7 +24,16 @@ export const updateSchema = Joi.object().keys({
     lastName:Joi.string().required(),
     phone:Joi.string().required(),
     address:Joi.string().required(),
-    gender:Joi.string().required()
+    gender:Joi.string().required(),
+    coverImage: Joi.string()
+})
+
+export const adminSchema = Joi.object().keys({
+    firstName:Joi.string().required(),
+    lastName:Joi.string().required(),
+    email:Joi.string().email().required(),
+    phone:Joi.string().required(),
+    password:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
 })
 export const option = {
     abortEarly: false,

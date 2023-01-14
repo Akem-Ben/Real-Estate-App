@@ -34,7 +34,8 @@ const Register = async (req, res) => {
                 lng: 0,
                 lat: 0,
                 verified: false,
-                role: "user"
+                role: "user",
+                coverImage: ""
             });
             const userExist = await userModel_1.default.findOne({ email });
             return res.status(201).json({
@@ -138,7 +139,8 @@ exports.getUser = getUser;
 const updateUser = async (req, res) => {
     try {
         const id = req.params._id;
-        const { firstName, lastName, address, gender, phone } = req.body;
+        console.log(id);
+        const { firstName, lastName, address, gender, phone, coverImage } = req.body;
         const validateResult = utils_1.updateSchema.validate(req.body, utils_1.option);
         if (validateResult.error) {
             return res.status(400).json({
@@ -151,9 +153,11 @@ const updateUser = async (req, res) => {
                 Error: "You are not authorized to update your profile"
             });
         }
-        const updatedUser = await userModel_1.default.findOneAndUpdate({ _id: id }, { firstName, lastName, address, gender, phone }, { new: true });
+        console.log(user);
+        const updatedUser = await userModel_1.default.findOneAndUpdate({ _id: id }, { firstName, lastName, address, gender, phone, coverImage: req.file.path }); //{new:true})
         if (updatedUser) {
             const userNew = await userModel_1.default.findOne({ _id: id });
+            console.log(userNew);
             return res.status(200).json({
                 message: "Profile updated successfully",
                 userNew

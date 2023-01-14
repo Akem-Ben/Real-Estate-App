@@ -13,7 +13,8 @@ export interface IUser {
     lng: number,
     lat: number,
     verified: boolean,
-    role: string
+    role: string,
+    coverImage: string
 }
 
 const userSchema = new Schema({
@@ -54,6 +55,9 @@ const userSchema = new Schema({
         type: Boolean
     },
     role: {
+        type: String
+    },
+    coverImage: {
         type: String
     }
 },

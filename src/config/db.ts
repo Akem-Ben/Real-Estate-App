@@ -9,3 +9,6 @@ export const connectDB = async()=>{
         console.log(err)
     }
 }
+
+export const APP_SECRET = process.env.APP_SECRET!
+export const API_KEY = process.env.API_KEY!
