@@ -35,6 +35,14 @@ export const adminSchema = Joi.object().keys({
     phone:Joi.string().required(),
     password:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
 })
+
+export const agentSchema = Joi.object().keys({
+    name:Joi.string().required(),
+    companyName:Joi.string().required(),
+    email:Joi.string().email().required(),
+    phone:Joi.string().required(),
+    password:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+})
 export const option = {
     abortEarly: false,
     errors: {

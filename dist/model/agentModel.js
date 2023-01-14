@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const agentSchema = new mongoose_1.Schema({
     name: { type: String },
-    ownerName: { type: String },
+    companyName: { type: String },
     email: {
         type: String,
         require: [true, 'Please input your email'],
@@ -46,5 +46,5 @@ const agentSchema = new mongoose_1.Schema({
 }, {
     timestamps: true
 });
-const Agent = mongoose_1.default.model('users', agentSchema);
+const Agent = mongoose_1.default.model('agents', agentSchema);
 exports.default = Agent;
