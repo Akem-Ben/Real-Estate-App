@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateAgent = exports.CreateAdmin = exports.CreateSuperadmin = void 0;
+exports.getSingleAgent = exports.getAllAgents = exports.CreateAgent = exports.CreateAdmin = exports.CreateSuperadmin = void 0;
 const utils_1 = require("../Utils/utils");
 const userModel_1 = __importDefault(require("../model/userModel"));
 const agentModel_1 = __importDefault(require("../model/agentModel"));
@@ -167,3 +167,49 @@ const CreateAgent = async (req, res) => {
     }
 };
 exports.CreateAgent = CreateAgent;
+const getAllAgents = async (req, res) => {
+    try {
+        // const _id = req.params._id
+        // const Admin = await User.findOne({_id})
+        // if(Admin?.role === "admin" || Admin?.role === "Super Admin"){
+        const agents = await agentModel_1.default.find({});
+        return res.status(200).json({
+            message: "All Agents",
+            agents
+        });
+        // }
+        // return res.status(400).json({
+        //     message: "unauthorised access"
+        // })
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: `Internal Server Error`,
+            Error: "/admin/get-all-agents"
+        });
+    }
+};
+exports.getAllAgents = getAllAgents;
+const getSingleAgent = async (req, res) => {
+    try {
+        const _id = req.params._id;
+        console.log(_id);
+        const agent = await agentModel_1.default.findOne({ _id: _id });
+        if (agent) {
+            return res.status(200).json({
+                message: "Agent profile!!",
+                agent
+            });
+        }
+        return res.status(400).json({
+            message: "agent not found"
+        });
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: `Internal Server Error`,
+            Error: `/admin/get-single-agent`
+        });
+    }
+};
+exports.getSingleAgent = getSingleAgent;

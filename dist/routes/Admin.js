@@ -9,6 +9,7 @@ const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 router.post('/create-superadmin', adminController_1.CreateSuperadmin);
 router.post('/create-admin/:_id', auth_1.auth, adminController_1.CreateAdmin);
-router.post('/create-agent', auth_1.auth, adminController_1.CreateAgent);
-// router.post('/login',)
+router.post('/create-agent/:_id', auth_1.auth, adminController_1.CreateAgent);
+router.get('/get-all-agents/', auth_1.auth, adminController_1.getAllAgents);
+router.get('/get-single-agent/:_id', auth_1.auth, adminController_1.getSingleAgent);
 exports.default = router;

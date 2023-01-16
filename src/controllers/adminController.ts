@@ -171,3 +171,46 @@ export const CreateAgent = async(req:JwtPayload, res:Response)=>{
     }
 
 }
+export const getAllAgents = async(req:Request,res:Response)=>{
+    try{
+        // const _id = req.params._id
+        // const Admin = await User.findOne({_id})
+        // if(Admin?.role === "admin" || Admin?.role === "Super Admin"){
+        const agents = await Agent.find({})
+        return res.status(200).json({
+            message: "All Agents",
+            agents
+        })
+    // }
+    // return res.status(400).json({
+    //     message: "unauthorised access"
+    // })
+    }catch(err){
+        return res.status(500).json({
+            message: `Internal Server Error`,
+            Error: "/admin/get-all-agents"
+        })
+    }
+}
+
+export const getSingleAgent = async(req:Request,res:Response)=>{
+    try{
+        const _id = req.params._id
+        console.log(_id)
+        const agent = await Agent.findOne({_id:_id})
+        if(agent){
+            return res.status(200).json({
+                message: "Agent profile!!",
+                agent
+            })
+        }
+        return res.status(400).json({
+            message: "agent not found"
+        })
+    }catch(err){
+        return res.status(500).json({
+            message: `Internal Server Error`,
+            Error: `/admin/get-single-agent`
+        })
+    }
+}

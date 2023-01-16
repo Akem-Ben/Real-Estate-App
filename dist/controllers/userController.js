@@ -153,11 +153,9 @@ const updateUser = async (req, res) => {
                 Error: "You are not authorized to update your profile"
             });
         }
-        console.log(user);
         const updatedUser = await userModel_1.default.findOneAndUpdate({ _id: id }, { firstName, lastName, address, gender, phone, coverImage: req.file.path }); //{new:true})
         if (updatedUser) {
             const userNew = await userModel_1.default.findOne({ _id: id });
-            console.log(userNew);
             return res.status(200).json({
                 message: "Profile updated successfully",
                 userNew

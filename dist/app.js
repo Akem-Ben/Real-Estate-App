@@ -11,6 +11,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const db_1 = require("./config/db");
 const User_1 = __importDefault(require("./routes/User"));
 const Admin_1 = __importDefault(require("./routes/Admin"));
+const Agent_1 = __importDefault(require("./routes/Agent"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 (0, db_1.connectDB)();
@@ -23,6 +24,7 @@ app.use(express_1.default.static(path_1.default.join(process.cwd(), './public'))
 //Routes
 app.use('/users', User_1.default);
 app.use('/admin', Admin_1.default);
+app.use('/agent', Agent_1.default);
 app.listen(process.env.PORT, () => {
     console.log(`App paying attention on port ${process.env.PORT}`);
 });
