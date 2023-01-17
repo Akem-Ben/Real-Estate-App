@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSingleAgent = exports.getAllAgents = exports.CreateAgent = exports.CreateAdmin = exports.CreateSuperadmin = void 0;
+exports.deleteAgent = exports.getSingleAgent = exports.getAllAgents = exports.CreateAgent = exports.CreateAdmin = exports.CreateSuperadmin = void 0;
 const utils_1 = require("../Utils/utils");
 const userModel_1 = __importDefault(require("../model/userModel"));
 const agentModel_1 = __importDefault(require("../model/agentModel"));
@@ -213,3 +213,23 @@ const getSingleAgent = async (req, res) => {
     }
 };
 exports.getSingleAgent = getSingleAgent;
+const deleteAgent = async (req, res) => {
+    try {
+        const id = req.params._id;
+        const agent = await agentModel_1.default.findByIdAndDelete({ _id: id });
+        const agents = await agentModel_1.default.find({});
+        if (agent) {
+            return res.status(200).json({
+                message: `Agent deleted`,
+                agents
+            });
+        }
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            Error: '/admin/delete-agent'
+        });
+    }
+};
+exports.deleteAgent = deleteAgent;

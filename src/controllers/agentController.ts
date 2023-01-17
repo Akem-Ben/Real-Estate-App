@@ -4,6 +4,7 @@ import User from "../model/userModel"
 import express, {Request, Response} from "express"
 import Agent from "../model/agentModel"
 import bcrypt from 'bcryptjs'
+import Property from "../model/propertyModel"
 
 
 export const updateAgent = async(req:JwtPayload,res:Response)=>{
@@ -79,4 +80,45 @@ export const agentLogin = async(req:Request,res:Response)=>{
             Error: "/agent/agentLogin"
         })
     }
+}
+
+export const createProperty = async(req:JwtPayload, res:Response)=>{
+    try{
+        const _id = req.agent._id
+        console.log(_id)
+        const {name, description, address, category, image} = req.body
+
+        // const salt = await GenerateSalt()
+        // const agentPassword = await GeneratePassword(password,salt)
+        const agent = await Agent.findOne({_id})
+        // const Admin = await User.findOne({_id})
+            if(agent){
+                const createProperty = await Property.create({
+                    name,
+                    address,
+                    description,
+                    category,
+                    propertySize: "",
+                    condition: "",
+                    price: 0,
+                    rating: 0,
+                    agentId: _id,
+                    image: req.file.path
+                });
+                return res.status(201).json({
+                    message: "Property created successfully",
+                    createProperty
+                })
+            }
+            return res.status(400).json({
+                message: "unauthorised access"
+            })
+
+    }catch(err){
+        return res.status(500).json({
+        message: "Internal Server Error",
+        Error: "/agent/create-property"
+        })
+    }
+
 }

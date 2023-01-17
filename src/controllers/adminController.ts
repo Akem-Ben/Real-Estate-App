@@ -214,3 +214,22 @@ export const getSingleAgent = async(req:Request,res:Response)=>{
         })
     }
 }
+
+export const deleteAgent = async (req:Request, res:Response)=>{
+    try{
+        const id = req.params._id
+        const agent = await Agent.findByIdAndDelete({_id:id})
+        const agents = await Agent.find({})
+        if(agent){
+            return res.status(200).json({
+                message: `Agent deleted`,
+                agents
+            })
+        }
+    }catch(err){
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            Error: '/admin/delete-agent'
+        })
+    }
+}

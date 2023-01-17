@@ -3,10 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.agentLogin = exports.updateAgent = void 0;
+exports.createProperty = exports.agentLogin = exports.updateAgent = void 0;
 const utils_1 = require("../Utils/utils");
 const agentModel_1 = __importDefault(require("../model/agentModel"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const propertyModel_1 = __importDefault(require("../model/propertyModel"));
 const updateAgent = async (req, res) => {
     try {
         const id = req.params._id;
@@ -84,3 +85,42 @@ const agentLogin = async (req, res) => {
     }
 };
 exports.agentLogin = agentLogin;
+const createProperty = async (req, res) => {
+    try {
+        const _id = req.agent._id;
+        console.log(_id);
+        const { name, description, address, category, image } = req.body;
+        // const salt = await GenerateSalt()
+        // const agentPassword = await GeneratePassword(password,salt)
+        const agent = await agentModel_1.default.findOne({ _id });
+        // const Admin = await User.findOne({_id})
+        if (agent) {
+            const createProperty = await propertyModel_1.default.create({
+                name,
+                address,
+                description,
+                category,
+                propertySize: "",
+                condition: "",
+                price: 0,
+                rating: 0,
+                agentId: _id,
+                image: req.file.path
+            });
+            return res.status(201).json({
+                message: "Property created successfully",
+                createProperty
+            });
+        }
+        return res.status(400).json({
+            message: "unauthorised access"
+        });
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            Error: "/agent/create-property"
+        });
+    }
+};
+exports.createProperty = createProperty;
