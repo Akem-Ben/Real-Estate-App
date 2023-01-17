@@ -14,6 +14,7 @@ export interface IAgent{
     serviceAvailable:boolean;
     rating:number;
     role:string;
+    property:Array<object>,
     coverImage:string
 }
 
@@ -35,6 +36,7 @@ const agentSchema = new Schema({
     pincode:{type:String},
     serviceAvailable:{type:Boolean},
     role:{type:String},
+    property:{type:Array},
     coverImage:{type:String}
 },{
     timestamps:true

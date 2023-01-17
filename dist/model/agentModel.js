@@ -42,6 +42,7 @@ const agentSchema = new mongoose_1.Schema({
     pincode: { type: String },
     serviceAvailable: { type: Boolean },
     role: { type: String },
+    property: { type: Array },
     coverImage: { type: String }
 }, {
     timestamps: true

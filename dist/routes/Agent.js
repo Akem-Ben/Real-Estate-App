@@ -11,4 +11,8 @@ const router = express_1.default.Router();
 router.patch('/update-agent/:_id', auth_1.agentAuth, multer_1.upload.single('coverImage'), agentController_1.updateAgent);
 router.post('/login', agentController_1.agentLogin);
 router.post('/create-property', auth_1.agentAuth, multer_1.upload.single('image'), agentController_1.createProperty);
+router.get('/get-properties', auth_1.agentAuth, agentController_1.getAllAgentProperty);
+router.get('/get-property/:_id', auth_1.agentAuth, agentController_1.getSingleProperty);
+router.post('/updateProperty/:_id', auth_1.agentAuth, multer_1.upload.single('image'), agentController_1.propertyUpdate);
+router.delete('/delete-property/:_id', auth_1.agentAuth, agentController_1.deleteProperty);
 exports.default = router;

@@ -144,6 +144,7 @@ const CreateAgent = async (req, res) => {
                     serviceAvailable: false,
                     rating: 0,
                     role: "agent",
+                    property: [],
                     coverImage: ""
                 });
                 return res.status(201).json({

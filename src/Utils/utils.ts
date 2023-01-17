@@ -36,6 +36,16 @@ export const adminSchema = Joi.object().keys({
     password:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
 })
 
+export const updatePropertySchema = Joi.object().keys({
+    name:Joi.string(),
+    description:Joi.string(),
+    address:Joi.string(),
+    category:Joi.string(),
+    price:Joi.number(),
+    propertySize:Joi.string(),
+    condition:Joi.string(),
+    image:Joi.string()
+})
 export const agentSchema = Joi.object().keys({
     name:Joi.string().required(),
     companyName:Joi.string().required(),

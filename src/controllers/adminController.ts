@@ -148,6 +148,7 @@ export const CreateAgent = async(req:JwtPayload, res:Response)=>{
                     serviceAvailable:false,
                     rating:0,
                     role:"agent",
+                    property: [],
                     coverImage:""
                 });
                 return res.status(201).json({

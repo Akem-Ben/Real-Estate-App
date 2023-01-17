@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post('/create-superadmin', CreateSuperadmin)
 router.post('/create-admin/:_id', auth, CreateAdmin)
-router.post('/create-agent/:_id', auth, CreateAgent)
+router.post('/create-agent/', auth, CreateAgent)
 router.get('/get-all-agents/', auth, getAllAgents)
 router.get('/get-single-agent/:_id', auth, getSingleAgent)
 router.delete('/delete-agent/:_id', auth, deleteAgent)
