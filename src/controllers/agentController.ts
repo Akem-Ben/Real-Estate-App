@@ -10,6 +10,7 @@ import Property from "../model/propertyModel"
 export const updateAgent = async(req:JwtPayload,res:Response)=>{
     try{
         const _id = req.params._id
+        console.log(_id)
         const {name,companyName,address,email,phone,serviceAvailable,coverImage} = req.body
         const validateResult = updateAgentSchema.validate(req.body,option)
         if(validateResult.error){
@@ -52,7 +53,7 @@ export const agentLogin = async(req:Request,res:Response)=>{
             })
         }
         const agent = await Agent.findOne({email})
-        console.log(agent)
+        // console.log(agent)
         if(!agent){
             return res.status(400).json({
                 message: "User does not exist",
@@ -85,7 +86,7 @@ export const agentLogin = async(req:Request,res:Response)=>{
 export const createProperty = async(req:JwtPayload, res:Response)=>{
     try{
         const _id = req.agent._id
-        console.log(_id)
+        // console.log(_id)
         const {name, description, address, category, image} = req.body
 
         // const salt = await GenerateSalt()
@@ -216,7 +217,7 @@ export const deleteProperty = async (req:JwtPayload, res:Response)=>{
         const id = req.params._id
         const delProperty = await Property.findByIdAndDelete({_id:id})
         const property = await Property.find({})
-        console.log(property)
+        // console.log(property)
         if(property){
             return res.status(200).json({
                 message: `Property deleted`,

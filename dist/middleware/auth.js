@@ -5,8 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.agentAuth = exports.auth = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+// import {APP_SECRET} from "../../../config/db"
 const userModel_1 = __importDefault(require("../model/userModel"));
 const agentModel_1 = __importDefault(require("../model/agentModel"));
+const db_1 = require("../config/db");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const auth = async (req, res, next) => {
     try {
         const authorization = req.headers.authorization;
@@ -16,7 +20,7 @@ const auth = async (req, res, next) => {
             });
         }
         const token = authorization.slice(7, authorization.length);
-        let verified = jsonwebtoken_1.default.verify(token, "akemini12345");
+        let verified = jsonwebtoken_1.default.verify(token, db_1.app_secret);
         if (!verified) {
             return res.status(401).json({
                 Error: "Unauthorised"

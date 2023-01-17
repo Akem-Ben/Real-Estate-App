@@ -96,7 +96,7 @@ export const CreateAdmin = async(req:JwtPayload, res:Response)=>{
                 coverImage: ""
             })
             const superAdminExist = await User.findOne({email})
-            console.log(superAdminExist)
+            // console.log(superAdminExist)
             return res.status(201).json({
                 message: 'Admin created successfully',
                 verified: superAdminExist?.verified,
@@ -197,7 +197,7 @@ export const getAllAgents = async(req:Request,res:Response)=>{
 export const getSingleAgent = async(req:Request,res:Response)=>{
     try{
         const _id = req.params._id
-        console.log(_id)
+        // console.log(_id)
         const agent = await Agent.findOne({_id:_id})
         if(agent){
             return res.status(200).json({

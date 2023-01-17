@@ -9,7 +9,9 @@ import AdminRoutes from './routes/Admin'
 import AgentRoutes from './routes/Agent'
 
 const app = express()
+
 dotenv.config()
+
 connectDB()
 
 

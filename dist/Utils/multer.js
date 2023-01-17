@@ -5,12 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.upload = void 0;
 const multer_1 = __importDefault(require("multer"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const multer_storage_cloudinary_1 = require("multer-storage-cloudinary");
+const db_1 = require("../config/db");
+dotenv_1.default.config();
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
-    cloud_name: "dirr9d0ox",
-    api_key: 591515841429849,
-    api_secret: "poaA3qnFSUxpsmxFmPwtclhaFfQ"
+    cloud_name: db_1.cloudinary_name,
+    api_key: db_1.cloudinary_key,
+    api_secret: db_1.cloudinary_secret
 });
 const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
     cloudinary,

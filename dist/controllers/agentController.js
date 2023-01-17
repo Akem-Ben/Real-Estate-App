@@ -11,6 +11,7 @@ const propertyModel_1 = __importDefault(require("../model/propertyModel"));
 const updateAgent = async (req, res) => {
     try {
         const _id = req.params._id;
+        console.log(_id);
         const { name, companyName, address, email, phone, serviceAvailable, coverImage } = req.body;
         const validateResult = utils_1.updateAgentSchema.validate(req.body, utils_1.option);
         if (validateResult.error) {
@@ -54,7 +55,7 @@ const agentLogin = async (req, res) => {
             });
         }
         const agent = await agentModel_1.default.findOne({ email });
-        console.log(agent);
+        // console.log(agent)
         if (!agent) {
             return res.status(400).json({
                 message: "User does not exist",
@@ -88,7 +89,7 @@ exports.agentLogin = agentLogin;
 const createProperty = async (req, res) => {
     try {
         const _id = req.agent._id;
-        console.log(_id);
+        // console.log(_id)
         const { name, description, address, category, image } = req.body;
         // const salt = await GenerateSalt()
         // const agentPassword = await GeneratePassword(password,salt)
@@ -218,7 +219,7 @@ const deleteProperty = async (req, res) => {
         const id = req.params._id;
         const delProperty = await propertyModel_1.default.findByIdAndDelete({ _id: id });
         const property = await propertyModel_1.default.find({});
-        console.log(property);
+        // console.log(property)
         if (property) {
             return res.status(200).json({
                 message: `Property deleted`,

@@ -95,7 +95,7 @@ const CreateAdmin = async (req, res) => {
                 coverImage: ""
             });
             const superAdminExist = await userModel_1.default.findOne({ email });
-            console.log(superAdminExist);
+            // console.log(superAdminExist)
             return res.status(201).json({
                 message: 'Admin created successfully',
                 verified: superAdminExist?.verified,
@@ -194,7 +194,7 @@ exports.getAllAgents = getAllAgents;
 const getSingleAgent = async (req, res) => {
     try {
         const _id = req.params._id;
-        console.log(_id);
+        // console.log(_id)
         const agent = await agentModel_1.default.findOne({ _id: _id });
         if (agent) {
             return res.status(200).json({

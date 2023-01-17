@@ -3,8 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.API_KEY = exports.APP_SECRET = exports.connectDB = void 0;
+exports.cloudinary_secret = exports.cloudinary_key = exports.cloudinary_name = exports.app_secret = exports.connectDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const connectDB = async () => {
     try {
         const conn = await mongoose_1.default.connect(`mongodb://localhost:27017/abn_estates`, () => {
@@ -16,5 +18,7 @@ const connectDB = async () => {
     }
 };
 exports.connectDB = connectDB;
-exports.APP_SECRET = process.env.APP_SECRET;
-exports.API_KEY = process.env.API_KEY;
+exports.app_secret = process.env.APP_SECRET;
+exports.cloudinary_name = process.env.CLOUDINARY_CLOUD_NAME;
+exports.cloudinary_key = process.env.CLOUDINARY_API_KEY;
+exports.cloudinary_secret = process.env.CLOUDINARY_API_SECRET;
